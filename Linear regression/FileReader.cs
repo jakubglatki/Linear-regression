@@ -76,7 +76,7 @@ namespace Linear_regression
 
         public string GetFileName()
         {
-            Console.WriteLine("Put file name or file path (e.g. single.txt):");
+            Console.WriteLine("File name(LinearS / LinearM / Polynomial): ");
             string path = Console.ReadLine();
             return path;
         }
