@@ -7,7 +7,14 @@ D:\Program Files\GitHub\Linear-regression\Linear regression\bin\Debug\netcoreapp
 D:\Program Files\GitHub\Linear-regression\Linear regression\obj\Debug\netcoreapp3.1\Linear regression.csprojAssemblyReference.cache
 D:\Program Files\GitHub\Linear-regression\Linear regression\obj\Debug\netcoreapp3.1\Linear regression.AssemblyInfoInputs.cache
 D:\Program Files\GitHub\Linear-regression\Linear regression\obj\Debug\netcoreapp3.1\Linear regression.AssemblyInfo.cs
-D:\Program Files\GitHub\Linear-regression\Linear regression\obj\Debug\netcoreapp3.1\Linear regression.csproj.CoreCompileInputs.cache
 D:\Program Files\GitHub\Linear-regression\Linear regression\obj\Debug\netcoreapp3.1\Linear regression.dll
 D:\Program Files\GitHub\Linear-regression\Linear regression\obj\Debug\netcoreapp3.1\Linear regression.pdb
 D:\Program Files\GitHub\Linear-regression\Linear regression\obj\Debug\netcoreapp3.1\Linear regression.genruntimeconfig.cache
+D:\Program Files\GitHub\Linear-regression\Linear regression\bin\Debug\netcoreapp3.1\Microsoft.Win32.SystemEvents.dll
+D:\Program Files\GitHub\Linear-regression\Linear regression\bin\Debug\netcoreapp3.1\System.Drawing.Common.dll
+D:\Program Files\GitHub\Linear-regression\Linear regression\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.0\Microsoft.Win32.SystemEvents.dll
+D:\Program Files\GitHub\Linear-regression\Linear regression\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp3.0\System.Drawing.Common.dll
+D:\Program Files\GitHub\Linear-regression\Linear regression\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.0\System.Drawing.Common.dll
+D:\Program Files\GitHub\Linear-regression\Linear regression\obj\Debug\netcoreapp3.1\Linear regression.csproj.CopyComplete
+D:\Program Files\GitHub\Linear-regression\Linear regression\bin\Debug\netcoreapp3.1\MathNet.Numerics.dll
+D:\Program Files\GitHub\Linear-regression\Linear regression\obj\Debug\netcoreapp3.1\Linear regression.csproj.CoreCompileInputs.cache

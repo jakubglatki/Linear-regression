@@ -6,7 +6,7 @@ namespace Linear_regression
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Matrices matrices = new Matrices();
         }
     }
 }

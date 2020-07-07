@@ -1,8 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "9+UYwd6rrv9k0fgXAvx0bKXakBxFzz69G5uKBGTapJ/ghtdVVoDwRU3y5SIf3aAzVqV+NeBwgUuEhTIx0CCz7w==",
+  "dgSpecHash": "RwBBgwONW1+k3Tas41aZ8Ao5Xv+U3hhoifc/T51MGXd3o0eCyN3VGOwfiutz1Bb6cbdInYIIlwcOCn+JUjCfhw==",
   "success": true,
   "projectFilePath": "D:\\Program Files\\GitHub\\Linear-regression\\Linear regression\\Linear regression.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\jakub\\.nuget\\packages\\mathnet.numerics\\4.11.0\\mathnet.numerics.4.11.0.nupkg.sha512",
+    "C:\\Users\\jakub\\.nuget\\packages\\microsoft.netcore.platforms\\3.1.0\\microsoft.netcore.platforms.3.1.0.nupkg.sha512",
+    "C:\\Users\\jakub\\.nuget\\packages\\microsoft.win32.systemevents\\4.7.0\\microsoft.win32.systemevents.4.7.0.nupkg.sha512",
+    "C:\\Users\\jakub\\.nuget\\packages\\system.drawing.common\\4.7.0\\system.drawing.common.4.7.0.nupkg.sha512"
+  ],
   "logs": []
 }

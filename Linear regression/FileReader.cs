@@ -8,6 +8,8 @@ namespace Linear_regression
 {
   public class FileReader
     {
+        public List<List<double>> xLists;
+        public List<double> y;
         public FileReader() { }
         public void ReadFile(string path, List<List<double>> xLists, List<double> y)
         {
@@ -23,13 +25,14 @@ namespace Linear_regression
 
                 while ((row = file.ReadLine()) != null)
                 {
-                    row = row.Replace(".", ",");
                     List<string> sValue = row.Split(' ').ToList(); ;
                     PutValuesIntoColumns(xLists, y, columnLenght, sValue);
 
                 }
                 file.Close();
             }
+            this.xLists = xLists;
+            this.y = y;
         }
 
         private int CountValuesNumber(string row)
