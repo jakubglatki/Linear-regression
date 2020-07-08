@@ -37,7 +37,7 @@ namespace Linear_regression
 
         private int CountValuesNumber(string row)
         {
-            int number = 1; // one is the result
+            int number = 1; 
             foreach (char x in row)
             {
                 if (x == ' ')

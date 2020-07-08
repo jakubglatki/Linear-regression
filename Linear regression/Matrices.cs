@@ -39,31 +39,42 @@ namespace Linear_regression
         private void CalculateCoefficientsAndConstant()
         {
 
-            double mean = MatrixMean(x);
-            x = CenterMatix(x, mean);
+            double[] mean = MatrixMean(x);
 
-            Matrix<double> xT = x.Transpose();
+                x = CenterMatix(x, mean);
 
-            Matrix<double> result = Matrix<double>.Build.Dense(x.ColumnCount, x.ColumnCount);
+                Matrix<double> xT = x.Transpose();
 
-            xT.Multiply(x, result);
+                Matrix<double> xTxMultiplied = Matrix<double>.Build.Dense(x.ColumnCount, x.ColumnCount);
 
-            Matrix<double> value = result.Inverse();
+                xT.Multiply(x, xTxMultiplied);
 
-            Matrix<double> nextToLastStep = Matrix<double>.Build.Dense(x.ColumnCount, x.RowCount);
+                Matrix<double> inversed = xTxMultiplied.Inverse();
 
-            value.Multiply(xT, nextToLastStep);
+                Matrix<double> xTxInversedMultiplied = Matrix<double>.Build.Dense(x.ColumnCount, x.RowCount);
+
+            inversed.Multiply(xT, xTxInversedMultiplied);
 
 
-            Matrix<double> finalResult = Matrix<double>.Build.Dense(x.ColumnCount, 1);
+                Matrix<double> finalResult = Matrix<double>.Build.Dense(x.ColumnCount, 1);
 
-            nextToLastStep.Multiply(y, finalResult);
+            xTxInversedMultiplied.Multiply(y, finalResult);
+            CountBandC(finalResult);
+        }
 
-            double b = finalResult[0, 0];
+        private void CountBandC(Matrix<double> finalResult)
+        {
+            double[] b = new double[x.ColumnCount];
+            double coefficientValue = 0;
+            for (int i = 0; i < x.ColumnCount; i++)
+            {
+                b[i] = finalResult[i, 0];
+                coefficientValue += b[i] * data.xLists[i][0];
+                Console.WriteLine("\n Coefficient b" + i + ": " + b[i] + "\n");
+            }
 
-            double c = y[0, 0] - (b * data.xLists[0][0]);
+            double c = y[0, 0] - (coefficientValue);
 
-            Console.WriteLine("\n Coefficient b: " + b + "\n");
             Console.WriteLine("\n Constant c: " + c + "\n");
         }
         private void FillVectorWithValues(List<double> Y)
@@ -98,28 +109,32 @@ namespace Linear_regression
             }
         }
 
-        private double MatrixMean(Matrix<double> matrix)
+        private double[] MatrixMean(Matrix<double> matrix)
         {
-            double sum = 0;
+            double[] sum = new double[matrix.ColumnCount];
             for (int i = 0; i < matrix.ColumnCount; i++)
             {
                 for (int j = 0; j < matrix.RowCount; j++)
                 {
-                    sum += matrix[j, i];
+                    sum[i] += matrix[j, i];
                 }
             }
             double rows = Convert.ToDouble(matrix.RowCount);
             double columns = Convert.ToDouble(matrix.ColumnCount);
-            return (sum / (rows * columns));
+            for(int i=0;i<matrix.ColumnCount;i++)
+            {
+                sum[i] = (sum[i] / rows);
+            }
+            return sum;
         }
 
-        private Matrix<double> CenterMatix(Matrix<double> matrix, double mean)
+        private Matrix<double> CenterMatix(Matrix<double> matrix, double[] mean)
         {
             for (int i = 0; i < matrix.ColumnCount; i++)
             {
                 for (int j = 0; j < matrix.RowCount; j++)
                 {
-                    matrix[j, i] -= mean;
+                    matrix[j,i] -= mean[i];
                 }
             }
             return matrix;
