@@ -13,27 +13,41 @@ namespace Linear_regression
         public Matrix<double> x;
         public Matrix<double> y;
         private FunctionData data;
-
+        private Matrix<double> finalResult;
+        private Matrix<double> inversed;
+        private Matrix<double> xT;
+        private double c;
         public Matrices()
         {
             data = new FunctionData();
 
-            if (data.isLinear)
+            while (true)
             {
-                x = Matrix<double>.Build.Dense(data.xLists[0].Count, data.xLists.Count);
-                FillMatrix(data.xLists);
+                if (data.isLinear)
+                {
+                    x = Matrix<double>.Build.Dense(data.xLists[0].Count, data.xLists.Count);
+                    FillMatrix(data.xLists);
+                }
+
+                else
+                {
+                    x = Matrix<double>.Build.Dense(data.y.Count, data.degree);
+                    FillMatrix(data.xLists[0], data.degree);
+                }
+
+                y = Matrix<double>.Build.Dense(data.y.Count, 1);
+                FillVectorWithValues(data.y);
+
+                CalculateCoefficientsAndConstant();
+
+                if (data.isLinear)
+                    break;
+
+                if (CheckIfPolynomialDegreeIsOk(data.degree))
+                    break;
+
+                data.degree++;
             }
-
-            else
-            {
-                x = Matrix<double>.Build.Dense(data.xLists[0].Count, data.xLists.Count);
-                FillMatrix(data.xLists[0], data.degree);
-            }
-
-            y = Matrix<double>.Build.Dense(data.y.Count, 1);
-            FillVectorWithValues(data.y);
-
-            CalculateCoefficientsAndConstant();
         }
 
         private void CalculateCoefficientsAndConstant()
@@ -43,26 +57,46 @@ namespace Linear_regression
 
                 x = CenterMatix(x, mean);
 
-                Matrix<double> xT = x.Transpose();
+                xT = x.Transpose();
 
                 Matrix<double> xTxMultiplied = Matrix<double>.Build.Dense(x.ColumnCount, x.ColumnCount);
 
                 xT.Multiply(x, xTxMultiplied);
 
-                Matrix<double> inversed = xTxMultiplied.Inverse();
+                inversed = xTxMultiplied.Inverse();
 
                 Matrix<double> xTxInversedMultiplied = Matrix<double>.Build.Dense(x.ColumnCount, x.RowCount);
 
             inversed.Multiply(xT, xTxInversedMultiplied);
 
 
-                Matrix<double> finalResult = Matrix<double>.Build.Dense(x.ColumnCount, 1);
+               finalResult = Matrix<double>.Build.Dense(x.ColumnCount, 1);
 
             xTxInversedMultiplied.Multiply(y, finalResult);
-            CountBandC(finalResult);
+
+            if (data.isLinear)
+                CountBandCLinear(finalResult);
+
+            else
+                CountBandCPolynomial(finalResult);
         }
 
-        private void CountBandC(Matrix<double> finalResult)
+        private bool CheckIfPolynomialDegreeIsOk(int degree)
+        {
+            double[] b = new double[degree];
+            double coefficientValue = 0;
+            for (int i = 0; i < degree; i++)
+            {
+                b[i] = this.finalResult[i, 0];
+                coefficientValue += b[i] * Math.Pow(data.xLists[0][1], i + 1);
+            }
+
+            if (y[1, 0] - c - coefficientValue < 1 && y[1, 0] - c - coefficientValue > -1)
+                return true;
+
+            else return false;
+        }
+            private void CountBandCLinear(Matrix<double> finalResult)
         {
             double[] b = new double[x.ColumnCount];
             double coefficientValue = 0;
@@ -73,10 +107,28 @@ namespace Linear_regression
                 Console.WriteLine("\n Coefficient b" + i + ": " + b[i] + "\n");
             }
 
-            double c = y[0, 0] - (coefficientValue);
+             c = y[0, 0] - (coefficientValue);
 
             Console.WriteLine("\n Constant c: " + c + "\n");
         }
+        private void CountBandCPolynomial(Matrix<double> finalResult)
+        {
+            double[] b = new double[x.ColumnCount];
+            double coefficientValue = 0;
+            for (int i = 0; i < x.ColumnCount; i++)
+            {
+                b[i] = finalResult[i, 0];
+                coefficientValue += b[i] * Math.Pow(data.xLists[0][0],i+1);
+                Console.WriteLine("\n Coefficient b" + i + ": " + b[i] + "\n");
+            }
+
+            c = y[0, 0] - (coefficientValue);
+
+            Console.WriteLine("\n Constant c: " + c + "\n");
+        }
+
+
+
         private void FillVectorWithValues(List<double> Y)
         {
             for (int i = 0; i < Y.Count; i++)

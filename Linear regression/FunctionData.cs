@@ -20,6 +20,7 @@ namespace Linear_regression
             y = new List<double>();
             getDataFromFile();
             this.isLinear = checkIfFunctionIsLinear();
+            degree = 1;
         }
 
         public void getDataFromFile()
