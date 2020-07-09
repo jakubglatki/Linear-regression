@@ -35,7 +35,7 @@ namespace Linear_regression
 
         private string getFilePath(FileReader fileReader)
         {
-            string path = "D:\\Program Files\\GitHub\\Linear-regression\\Linear regression\\TestData";
+            string path = "..\\..\\..\\..\\Linear regression\\TestData";
             fileName = fileReader.GetFileName();
 
             if (fileName == "LinearS")

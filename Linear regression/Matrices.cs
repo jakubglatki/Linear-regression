@@ -16,6 +16,7 @@ namespace Linear_regression
         private Matrix<double> finalResult;
         private Matrix<double> inversed;
         private Matrix<double> xT;
+        private double[] b;
         private double c;
         public Matrices()
         {
@@ -31,7 +32,7 @@ namespace Linear_regression
 
                 else
                 {
-                    x = Matrix<double>.Build.Dense(data.y.Count, data.degree);
+                    x = Matrix<double>.Build.Dense(data.xLists[0].Count, data.degree);
                     FillMatrix(data.xLists[0], data.degree);
                 }
 
@@ -48,6 +49,9 @@ namespace Linear_regression
 
                 data.degree++;
             }
+
+            FindValue findValue = new FindValue(data.xLists, data.isLinear, data.degree, b, c);
+
         }
 
         private void CalculateCoefficientsAndConstant()
@@ -83,7 +87,7 @@ namespace Linear_regression
 
         private bool CheckIfPolynomialDegreeIsOk(int degree)
         {
-            double[] b = new double[degree];
+            b = new double[degree];
             double coefficientValue = 0;
             for (int i = 0; i < degree; i++)
             {
@@ -92,13 +96,20 @@ namespace Linear_regression
             }
 
             if (y[1, 0] - c - coefficientValue < 1 && y[1, 0] - c - coefficientValue > -1)
+            {
+                for(int i=0;i<degree;i++)
+                {
+                    Console.WriteLine("\n Coefficient b" + i + ": " + b[i] + "\n");
+                }
+                Console.WriteLine("\n Constant c: " + c + "\n");
                 return true;
-
+            }
             else return false;
         }
+
             private void CountBandCLinear(Matrix<double> finalResult)
         {
-            double[] b = new double[x.ColumnCount];
+            b = new double[x.ColumnCount];
             double coefficientValue = 0;
             for (int i = 0; i < x.ColumnCount; i++)
             {
@@ -113,18 +124,16 @@ namespace Linear_regression
         }
         private void CountBandCPolynomial(Matrix<double> finalResult)
         {
-            double[] b = new double[x.ColumnCount];
+            b = new double[x.ColumnCount];
             double coefficientValue = 0;
             for (int i = 0; i < x.ColumnCount; i++)
             {
                 b[i] = finalResult[i, 0];
                 coefficientValue += b[i] * Math.Pow(data.xLists[0][0],i+1);
-                Console.WriteLine("\n Coefficient b" + i + ": " + b[i] + "\n");
             }
 
             c = y[0, 0] - (coefficientValue);
 
-            Console.WriteLine("\n Constant c: " + c + "\n");
         }
 
 
